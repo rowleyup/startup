@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="eng">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, inital-scale=1.0" />
+		<title>Scores</title>
+		<link rel="icon" href="Hmmm2.png" />
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+	</head>
+	<body class="bg-info text-light">
+		<header class="container-fluid">
+			<nav class="navbar fixed-top">
+				<h1 class="brand">Let's think!</h1>
+				<menu class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="play.html">Levels</a></li>
+					<li class="nav-item"><a class="nav-link active" href="scores.html">Scores</a><li>
+				</menu>
+			</nav>
+		</header>
+		<main class="container-fluid text-center">
+			<table class="table table-primary table-striped-columns">
+				<thead class="table-warning">
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Score</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody id="scores"></tbody>
+			</table>
+		</main>
+		<footer class="bg-dark text-muted">
+			<div class="container-fluid">
+				<a class="text-reset" href="https://adventuresinthought.click">Eric Upton-Rowley</a>
+				<a class="text-reset" href="https://github.com/rowleyup/startup.git">GitHub</a>
+			</div>
+		</footer>
+		<script src="scores.js"></script>
+	</body>
+</html>

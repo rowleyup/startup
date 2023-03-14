@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="eng">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Riddle Four</title>
+		<link rel="icon" href="Hmmm2.png" />
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+	</head>
+	<body class="bg-info text-light">
+		<header class="container-fluid">
+			<nav class="navbar fixed-top">
+				<h1 class="brand">Let's think!</h1>
+				<menu class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="play.html">Levels</a></li>
+					<li class="nav-item"><a class="nav-link" href="scores.html">Scores</a></li>
+				</menu>
+			</nav>
+		</header>
+		<main>
+			<div class="players">
+				Player:
+				<span class="player-name"></span>
+			</div>
+			<div class="choice">
+				<h1>Riddle Four</h1>
+			</div>
+			<div class="question-button">
+				<div class="question">
+					<p id="riddle" style="color:rgb(67,48,240)">Emma, who is 20 years old, is 4 times as old as Jason. How old will she be when she is twice as old as he is?</p>
+				</div>
+				<div class="answer">
+					<button id="wrong" class="item1 btn btn-warning" onclick="game.pressButton(this)">32</button>
+					<button id="correct" class="item2 btn btn-warning" onclick="game.pressButton(this)">30</button>
+					<button id="wrong" class="item3 btn btn-warning" onclick="game.pressButton(this)">28</button>
+					<button id="wrong" class="item4 btn btn-warning" onclick="game.pressButton(this)">40</button>
+				</div>
+			</div>
+			<div class="message">
+				<button class="btn btn-primary" onclick="game.begin()">Begin</button>
+				<p class="message-text"></p>
+			</div>
+		</main>
+		<footer class="bg-dark text-muted">
+			<div class="container-fluid">
+				<a class="text-reset" href="https://adventuresinthought.click">Eric Upton-Rowley</a>
+				<a class="text-reset" href="https://github.com/rowleyup/startup.git">GitHub</a>
+			</div>
+		</footer>
+		<script src="play.js"></script>
+	</body>
+</html>
