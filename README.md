@@ -132,3 +132,10 @@ document querySelector returns first one while queryAll returns all of those tag
 objects don't require quotes around keys but always require :
 
 Easiest way to make three thing happen in succession in to have three promise functions, not weird setTimeout in the .then()
+
+Node.js: 
+create project directory, use npm itit -y, make sure .gitignore file contains node-modules, install desired packages with npm install package-name, add require('package-name') to JavaScript code, run code with node file.js
+
+can also use node -e "command" to run a line of JavaScript from the console
+
+Functions that effect the server go in the node's js file.
