@@ -139,3 +139,7 @@ create project directory, use npm itit -y, make sure .gitignore file contains no
 can also use node -e "command" to run a line of JavaScript from the console
 
 Functions that effect the server go in the node's js file.
+
+ssh -i key ubuntu@domain
+
+In order to actually update environment variables in the server, use command: pm2 restart serviceName --update-env
