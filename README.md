@@ -147,3 +147,7 @@ In order to actually update environment variables in the server, use command: pm
 Most database functions are built in to the packages, just look up how to use them.
 
 functions can be called and declared simultaneously by (async () => {});
+
+Put any npm packages being used into the package.json file, that way npm install will automatically install everything you need and nothing else.
+
+Most of the effects of this are server-wide, for other players online. It connects users and allows for live updates to what people are doing.
