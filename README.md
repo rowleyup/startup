@@ -143,3 +143,7 @@ Functions that effect the server go in the node's js file.
 ssh -i key ubuntu@domain
 
 In order to actually update environment variables in the server, use command: pm2 restart serviceName --update-env
+
+Most database functions are built in to the packages, just look up how to use them.
+
+functions can be called and declared simultaneously by (async () => {});
