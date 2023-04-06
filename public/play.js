@@ -1,3 +1,26 @@
+const GameEndEvent = 'gameEnd';
+const GameStartEvent = 'gameStart';
+
+function displayPicture(data) {
+	const containerEl = document.querySelector("#picture");
+
+	const width = containerEl.offsetWidth;
+	const height = containerEl.offsetHeight;
+
+	const imgUrl = `https://picsum.photos/id/${data[0].id}/${width}/${height}?grayscale`;
+	const imgEl = document.createElement("img");
+	imgEl.setAttribute("src", imgUrl);
+	containerEl.appendChild(imgEl);
+}
+
+function callService(url, displayCallback) {
+	fetch(url)
+	.then((response) => response.json())
+	.then((data) => {
+		displayCallback(data);
+	});
+}
+
 class Game {
 	buttons;
 	allowPlayer;
@@ -33,64 +56,66 @@ class Game {
 		document.getElementById('riddle').style.color = "white";
 
 		this.allowPlayer = true;
+
+		this.broadcastEvent(this.getPlayerName(), GameStartEvent, {});
 	}
 
 	getPlayerName() {
 		return localStorage.getItem('userName') ?? 'Mystery player';
 	}
 
-	saveScore(score) {
+	updateScore(score) {
+		const scoreEl = document.querySelector('#score');
+		scoreEl.textContent = score;
+	}
+
+	async saveScore(score) {
 		const userName = this.getPlayerName();
+		const date = new Date().toLocaleDateString();
+		const newScore = { name: userName, score: score, date: date };
+
+		
+		try {
+			const response = await fetch('/api/score', {
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify(newScore)
+			});
+
+			this.broadcastEvent(userName, GameEndEvent, newScore);
+
+			const scores = await response.json();
+			localStorage.setItem('scores', JSON.stringify(scores));
+		} catch {
+			this.updateScoresLocal(newScore);
+		}
+	}
+
+	updateScoresLocal(newScore) {
 		let scores = [];
 		const scoresText = localStorage.getItem('scores');
 		if (scoresText) {
 			scores = JSON.parse(scoresText);
 		}
-		scores = this.updateScores(userName, score, scores);
-		localStorage.setItem('scores', JSON.stringify(scores));
-	}
 
-	updateScores(userName, score, scores) {
-		const date = new Date().toLocaleDateString();
-		let j = 0;
-		
 		let found = false;
 		for (const [i, prevScore] of scores.entries()) {
-			if (userName === prevScore.name) {
-				const oldScore = prevScore.score;
-				prevScore.score = oldScore + score;
-				prevScore.date = date;
+			if (newScore > prevScore.score) {
+				scores.splice(i, 0, newScore);
 				found = true;
-				j = i;
 				break;
 			}
 		}
 
-		let increased = {};
-		if (found) {
-			increased = scores.pop(j);
-		} else {
-			increased = { name: userName, score: score, date: date };
-		}
-
-		let added = false;
-		for (const [i, prevScore] of scores.entries()) {
-			if (increased.score > prevScore.score) {
-				scores.splice(i, 0, increased);
-				added = true;
-				break;
-			}
-		}
-
-		if (!added) {
-			scores.push(increased);
+		if (!found) {
+			scores.push(newScore);
 		}
 
 		if (scores.length > 10) {
 			scores.length = 10;
 		}
 
-		return scores;
+		localStorage.setItem('scores', JSON.stringify(scores));
 	}
 
 	async ready() {
@@ -122,6 +147,42 @@ class Game {
 			}, 1500);
 		});
 	}
+
+	configureWebSocket() {
+		const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+		this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+		this.socket.onopen = (event) => {
+			this.displayMsg('system', 'game', 'disconnected');
+		};
+		this.socket.onmessage = async (event) => {
+			const msg = JSON.parse(await event.data.text());
+			if (msg.type === GameEndEvent) {
+				this.displayMsg('player', msg.from, `scored ${msg.value.score}`);
+			} else if (msg.type === GameStartEvent) {
+				this.displayMsg('player', msg.from, `started a new game`);
+			}
+		};
+	}
+
+	displayMsg(cls, from, msg) {
+		const chatText = document.querySelector('#player-messages');
+		chatText.innerHTML = `<div class="event"><span class=${cls}-event">${from}</span> ${msg}</div>` + chatText.innerHTML;
+	}
+
+	broadcastEvent(from, type, value) {
+		const event = {
+			from: from,
+			type: type,
+			value: value
+		};
+		this.socket.send(JSON.stringify(event));
+	}
 }
 
 const game = new Game();
+
+const random = Math.floor(Math.random() * 1000);
+callService(
+	`https://picsum.photos/v2/list?page=${random}&limit=1`,
+	displayPicture
+);
