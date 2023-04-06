@@ -19,7 +19,7 @@ function displayScores(scores) {
 
 	if (scores.length) {
 		for (const [i, score] of scores.entries()) {
-			const posittionTdEl = document.createElement('td');
+			const positionTdEl = document.createElement('td');
 			const nameTdEl = document.createElement('td');
 			const scoreTdEl = document.createElement('td');
 			const dateTdEl = document.createElement('td');
