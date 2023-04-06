@@ -1,1 +1,6 @@
 keys/
+.DS_Store
+node_modules/
+.vscode/
+dbkeys.sh
+cookie.txt
