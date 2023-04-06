@@ -151,3 +151,5 @@ functions can be called and declared simultaneously by (async () => {});
 Put any npm packages being used into the package.json file, that way npm install will automatically install everything you need and nothing else.
 
 Most of the effects of this are server-wide, for other players online. It connects users and allows for live updates to what people are doing.
+
+bcrypt can encode and decode passwords for secure storage using bcrypt.hash
