@@ -153,3 +153,39 @@ Put any npm packages being used into the package.json file, that way npm install
 Most of the effects of this are server-wide, for other players online. It connects users and allows for live updates to what people are doing.
 
 bcrypt can encode and decode passwords for secure storage using bcrypt.hash
+
+FINAL REVIEW:
+
+Cookies allow the server to store data on the client browser.
+
+HTTP headers: host, content-type, cookie, NOT language
+
+Fetch and such things can be used in front-end or back-end code
+
+JSX is used to inject HTML, componentize HTML, and allow for HTML composability
+
+Linux daemons can fork other processes, start when the computer is rebooted, and execute independent of user
+PM2 is a daemon
+
+WebSocket is peer to peer instead of client to server
+
+const [v, updateV] = React.useState(false);
+React.useEffect(() => function(), [v]);
+This makes function() be called when first rendered AND every time v changes
+Having no array as a second argument in useEffect means it calls function() every time it re-renderes (whenever anything changes), having an empty array means it only calls function() when it first renders, and anything you add to the array is an extra time for it to call function().
+
+Port 80 is reserved for HTTP
+Port 443 is HTTPS
+Port 22 is SSH
+
+MongoDB query: { $or: [{name:/J./}, {score: {lt:3}}]}
+Finds { name: Walke, score: -55 } because it looks for either a name starting with J or a score lower than 3
+
+HTTP status codes:
+300s are for content redirects or caching
+400s are for client errors
+500s are for server errors
+200s are for successes
+100s are informational
+
+npm installing a specific package updates your package.json and adds that package, adds the source code to node_modules, and locks the verson of the package for your application
